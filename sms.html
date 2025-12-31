@@ -6,8 +6,8 @@
 <title>فتح الرسائل</title>
 <style>
 body{font-family:system-ui;text-align:center;padding:40px}
-a{display:inline-block;padding:16px 20px;border-radius:12px;
-border:1px solid #000;text-decoration:none;font-size:18px;font-weight:700}
+a{display:inline-block;padding:16px 22px;border-radius:14px;
+border:2px solid #000;text-decoration:none;font-size:18px;font-weight:700;color:#000}
 p{color:#444}
 </style>
 </head>
@@ -18,14 +18,14 @@ p{color:#444}
 <a id="btn">فتح الرسائل</a>
 
 <script>
-const p=new URLSearchParams(location.search);
-const code=p.get("code")||"";
-const to="1100";
-const ios=/iPhone|iPad|iPod/i.test(navigator.userAgent);
-const body=encodeURIComponent(code);
+const p = new URLSearchParams(location.search);
+const code = p.get("code") || "";
+const to = "1100";
+const ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+const body = encodeURIComponent(code);
 const link = ios ? sms:${to}&body=${body} : sms:${to}?body=${body};
-document.getElementById("btn").href = link;
-setTimeout(()=>{ try{location.href=link}catch(e){} },300);
+
+document.getElementById("btn").setAttribute("href", link);
 </script>
 
 </body>
