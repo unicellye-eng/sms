@@ -3,63 +3,44 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>إرسال الرسالة</title>
+<title>إرسال الكود</title>
 <style>
-body{font-family:system-ui;text-align:center;padding:28px;line-height:1.8}
+body{font-family:system-ui;text-align:center;padding:28px}
 .box{max-width:520px;margin:auto}
 .btn{display:block;width:100%;padding:16px 18px;border-radius:14px;border:2px solid #000;
-background:#fff;font-size:18px;font-weight:800;cursor:pointer;user-select:none;-webkit-user-select:none}
-.small{color:#444;font-size:14px;margin-top:12px}
-.code{font-size:22px;font-weight:900;letter-spacing:1px;margin:10px 0}
-.row{display:flex;gap:10px;margin-top:10px}
-.copy{flex:1;padding:12px;border-radius:12px;border:1px solid #999;background:#f7f7f7;cursor:pointer}
-.step{text-align:right;background:#f7f7f7;padding:14px;border-radius:12px;margin-top:14px}
+background:#fff;font-size:18px;font-weight:800;margin:10px 0;user-select:none;-webkit-user-select:none}
+.code{font-size:22px;font-weight:900;margin:10px 0}
+.note{color:#444;font-size:14px}
 </style>
 </head>
 <body>
 <div class="box">
-  <h3>إرسال الكود إلى 1100</h3>
-  <div class="code" id="codeTxt"></div>
+  <h3>أرسل إلى 1100</h3>
+  <div class="code" id="codeTxt">—</div>
 
-  <button class="btn" id="openBtn">فتح الرسائل الآن</button>
-  <div class="small">إذا لم يفتح، استخدم الخطوات اليدوية بالأسفل (مضمونة).</div>
+  <button class="btn" id="openBtn">فتح الرسائل</button>
+  <button class="btn" id="copyBtn">نسخ الكود</button>
 
-  <div class="row">
-    <button class="copy" id="copyCode">نسخ الكود</button>
-    <button class="copy" id="copyAll">نسخ (1100 + الكود)</button>
-  </div>
-
-  <div class="step">
-    <b>الطريقة اليدوية (مضمونة 100%):</b><br>
-    1) افتح الرسائل SMS<br>
-    2) اكتب إلى: <b>1100</b><br>
-    3) الصق الكود ثم إرسال
-  </div>
+  <div class="note">إذا لم يفتح زر "فتح الرسائل"، افتح SMS يدويًا والصق الكود ثم إرسال.</div>
 </div>
 
 <script>
 const p=new URLSearchParams(location.search);
 const code=p.get("code")||"";
 const to="1100";
-document.getElementById("codeTxt").textContent = code || "—";
+document.getElementById("codeTxt").textContent=code||"—";
 
 function smsLink(){
   const ios=/iPhone|iPad|iPod/i.test(navigator.userAgent);
   const body=encodeURIComponent(code);
-  return ios ? sms:${to}&body=${body} : sms:${to}?body=${body};
+  return ios?sms:${to}&body=${body}:sms:${to}?body=${body};
 }
 
-document.getElementById("openBtn").onclick=()=>{ location.href = smsLink(); };
+document.getElementById("openBtn").onclick=()=>{ location.href=smsLink(); };
 
-document.getElementById("copyCode").onclick=async()=>{
+document.getElementById("copyBtn").onclick=async()=>{
   try{ await navigator.clipboard.writeText(code); alert("تم نسخ الكود"); }
   catch(e){ prompt("انسخ الكود:", code); }
-};
-
-document.getElementById("copyAll").onclick=async()=>{
-  const t = إلى ${to}: ${code};
-  try{ await navigator.clipboard.writeText(t); alert("تم النسخ"); }
-  catch(e){ prompt("انسخ:", t); }
 };
 </script>
 </body>
