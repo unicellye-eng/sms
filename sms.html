@@ -1,0 +1,9 @@
+<!doctype html><meta charset="utf-8">
+<script>
+const p=new URLSearchParams(location.search);
+const code=p.get("code")||"";
+const to="1100";
+const ios=/iPhone|iPad|iPod/i.test(navigator.userAgent);
+const body=encodeURIComponent(code);
+location.href = ios ? sms:${to}&body=${body} : sms:${to}?body=${body};
+</script>
